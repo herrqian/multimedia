@@ -6,7 +6,7 @@
 #               encodeDict:     Wörterbuch
 def lzwEncode(input, alpha_dict: dict):
     output = ""
-    encodeDict = alpha_dict
+    encodeDict = alpha_dict.copy()
     i = 0
     s = input[i]
     while i < len(input) - 1:
@@ -47,14 +47,14 @@ def get_key(a_dict: dict, value):
 #               decodeDict:     Wörterbuch
 def lzwDecode(input, alpha_dict: dict):
     output = ""
-    decodeDict = alpha_dict
+    decodeDict = alpha_dict.copy()
     input_vec = input.strip().split(" ")
     i = 0
     output += decodeDict[int(input_vec[i])]
     while i < len(input_vec) - 1:
         j = i + 1
         if contain_key(decodeDict, int(input_vec[j])):
-            #decodeDict[len(decodeDict.keys()) + 1] = decodeDict[int(input_vec[i])] + decodeDict[int(input_vec[j])][0]
+            decodeDict[len(decodeDict.keys()) + 1] = decodeDict[int(input_vec[i])] + decodeDict[int(input_vec[j])][0]
             output += decodeDict[int(input_vec[j])]
         else:
             decodeDict[len(decodeDict.keys()) + 1] = decodeDict[int(input_vec[i])] + decodeDict[int(input_vec[i])][0]
@@ -73,7 +73,7 @@ def contain_key(my_dict, key):
 
 def main():
     input_data = '/WED/WE/WEE/WEB/WET'
-    #input_data = "wabba_wabba_wabba_wabba_woo_woo_woo"
+    # input_data = "wabba_wabba_wabba_wabba_woo_woo_woo"
     init_dict = {}
     index = 1
     for c in input_data:
@@ -82,13 +82,13 @@ def main():
             index += 1
         else:
             continue
-    #init_dict = {1: '_', 2: 'a', 3: 'b', 4: 'o', 5: 'w'}
-    #print(init_dict)
+    # init_dict = {1: '_', 2: 'a', 3: 'b', 4: 'o', 5: 'w'}
+    # print(init_dict)
     test_string = "wabba_wabba_wabba_wabba_woo_woo_woo"
     compressed, enDict = lzwEncode(input_data, init_dict)
     print(enDict)
     print(compressed)
-    #test_input = '5 2 3 3 2 1 6 8 10 12 9 11 7 16 5 4 4 11 21 23 4'
+    # test_input = '5 2 3 3 2 1 6 8 10 12 9 11 7 16 5 4 4 11 21 23 4'
     # test_dict = {1:'_',2:'a',3:'b',4:'o',5:'w'}
     decompressed, deDict = lzwDecode(compressed, init_dict)
     print(deDict)

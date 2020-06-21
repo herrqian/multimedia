@@ -1,5 +1,5 @@
-import math
 import heapq
+import math
 
 
 # Diese Funktion liest eine Textdatei im ASCII-Format
@@ -55,7 +55,7 @@ def huffman(probs):
     for k, v in probs.items():
         ig = math.log(1 / v, 2)
         entropy += v * ig
-    #print('entropy is', entropy)
+    # print('entropy is', entropy)
 
     hq = []
     for k, v in probs.items():
@@ -106,7 +106,7 @@ def main():
     print(probs)
     codes, entropy, meanLength = huffman(probs)
     print('code table is:')
-    for k,v in codes.items():
+    for k, v in codes.items():
         if k == '\n':
             print('\\n', ':', v)
         else:
